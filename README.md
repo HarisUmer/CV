@@ -1,6 +1,6 @@
 # CV Project
 
-A simple yet stylish **Curriculum Vitae (CV)** web page built using HTML, CSS, and (optionally) JavaScript. This project showcases personal details, skills, education, work experience, and other relevant information in a concise format.
+A simple yet stylish **PortFolio (CV)** web page built using HTML, CSS, and (optionally) JavaScript. This project showcases personal details, skills, education, work experience, and other relevant information in a concise format.
 
 ## Table of Contents
 1. [Overview](#overview)  
