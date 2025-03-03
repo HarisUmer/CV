@@ -214,7 +214,7 @@ function App() {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div className="rounded-lg overflow-hidden shadow-xl shadow-purple-900/20">
                 <img 
-                  src="res/Profile.jpeg" 
+                  src="https://i.postimg.cc/Ss6hVP6S/Profile.jpg" 
                   alt="Haris Umer" 
                   className="w-full h-auto object-cover"
                 />
