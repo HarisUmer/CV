@@ -1,46 +1,40 @@
-# CV Project
+<div align="center">
 
-A simple yet stylish **PortFolio (CV)** web page built using HTML, CSS, and (optionally) JavaScript. This project showcases personal details, skills, education, work experience, and other relevant information in a concise format.
+# 🧑‍💼 Portfolio / CV Website
 
-## Table of Contents
-1. [Overview](#overview)  
-2. [Features](#features)  
-3. [Technologies Used](#technologies-used)  
-4. [Installation](#installation)  
-5. [Usage](#usage)  
-6. [Project Structure](#project-structure)  
-7. [Contributing](#contributing)  
-8. [License](#license)  
-9. [Contact](#contact)
+**A clean, responsive personal portfolio (CV) web app** — skills, experience, education, and projects in a modern single-page layout.
+
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+
+</div>
 
 ---
 
-## Overview
+## ✨ Features
 
-This **CV project** is designed to give prospective employers or clients an at-a-glance view of your professional profile. It highlights key details such as your name, contact information, skills, education, and work experience. You can easily customize the page to reflect your personal brand or style.
+- ⚡ **Vite + React + TypeScript** — fast, typed single-page app.
+- 🎨 **TailwindCSS** styling with a responsive, mobile-first layout.
+- 🧩 **Config-driven content** — profile details live in `config.json`, so updating the CV needs no code changes.
+- 🖼️ Sections for profile, skills, experience, education, and projects.
+
+## 🚀 Getting started
+
+```bash
+npm install
+npm run dev        # local dev server
+npm run build      # production build
+npm run preview    # preview the build
+```
+
+Edit `project/config.json` to update your details.
+
+## 🧱 Stack
+
+React · TypeScript · Vite · TailwindCSS
 
 ---
 
-## Features
-
-- **Clean, Responsive Design**: Ensures the CV is easy to read on both desktop and mobile devices.  
-- **Modular Sections**: Sections for personal details, skills, education, work experience, projects, and more.  
-- **Customizable Layout**: Easily modify fonts, colors, and spacing to align with your personal brand.  
-- **Optional JavaScript Interactions**: Add smooth scrolling, animations, or interactive elements.
-
----
-
-## Technologies Used
-
-- **HTML5** for structuring the CV content.  
-- **CSS3** for styling and layout.  
-- **JavaScript (optional)** for interactive elements or animations.  
-- **Fonts & Icons (optional)** such as Google Fonts or Font Awesome for a polished look.
-
----
-
-## Installation
-
-1. **Clone or Download the Repository**  
-   ```bash
-   git clone https://github.com/your-username/your-cv-project.git
+<sub>A lightweight, easily-customizable portfolio site.</sub>
