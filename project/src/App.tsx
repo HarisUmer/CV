@@ -91,10 +91,10 @@ const PROJECTS: Project[] = [
     year: '2025',
     category: 'AI Product · CoalDev',
     role: 'Contributor',
-    body: 'AI-powered desktop file organizer I contributed to at CoalDev, live at sortsy.ai. Public case study of product and architecture — Next.js / Node front, PySide6 client, LLM core (no proprietary code).',
+    body: 'AI-powered desktop file organizer I contributed to at CoalDev. Live product at app.sortsy.ai. Public case study of product and architecture — Next.js / Node front, PySide6 client, LLM core (no proprietary code).',
     tech: ['Next.js', 'Node', 'PySide6', 'LLM'],
     repo: 'https://github.com/HarisUmer/sortsy',
-    live: 'https://sortsy.ai',
+    live: 'https://app.sortsy.ai/',
   },
   {
     n: '06',
@@ -195,7 +195,7 @@ const JOURNEY = [
   {
     period: 'Now',
     title: 'AI / Full-Stack Engineer — CoalDev',
-    body: 'Building AI products end-to-end. Contributed to Sortsy (sortsy.ai) and real-time backends across generative AI, agents and full-stack delivery.',
+    body: 'Building AI products end-to-end. Contributed to Sortsy (app.sortsy.ai) and real-time backends across generative AI, agents and full-stack delivery.',
   },
   {
     period: '2025 — present',
@@ -212,6 +212,7 @@ const JOURNEY = [
 const EMAIL = 'harisumer58@gmail.com';
 const GITHUB = 'https://github.com/HarisUmer';
 const LINKEDIN = 'https://linkedin.com/in/harisumer1124';
+const PROFILE = `${import.meta.env.BASE_URL}profile.jpg`;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -274,16 +275,11 @@ function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled ? 'border-b border-line bg-paper/90 backdrop-blur-md' : 'border-b border-transparent'
+        scrolled ? 'border-b border-line bg-bg/90 backdrop-blur-md' : 'border-b border-transparent'
       }`}
     >
       <div className="mx-auto flex max-w-sheet items-center justify-between px-5 py-4 md:px-8">
-        <button
-          onClick={() => goTo('top')}
-          className={`font-display text-sm font-bold tracking-tight transition-colors ${
-            scrolled ? 'text-ink' : 'text-paper'
-          }`}
-        >
+        <button onClick={() => goTo('top')} className="font-display text-sm font-bold tracking-tight text-fg">
           Haris Umer
         </button>
         <nav className="hidden items-center gap-8 md:flex">
@@ -292,13 +288,7 @@ function Header() {
               key={item.id}
               onClick={() => goTo(item.id)}
               className={`label transition-colors ${
-                scrolled
-                  ? active === item.id
-                    ? 'text-forest'
-                    : 'hover:text-ink'
-                  : active === item.id
-                    ? 'text-paper'
-                    : 'text-paper/65 hover:text-paper'
+                active === item.id ? 'text-accent' : 'hover:text-fg'
               }`}
             >
               {item.label}
@@ -307,18 +297,11 @@ function Header() {
         </nav>
         <a
           href={`mailto:${EMAIL}`}
-          className={`hidden px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] transition-colors md:inline-block ${
-            scrolled
-              ? 'border border-ink bg-ink text-paper hover:bg-forest hover:border-forest'
-              : 'border border-paper bg-paper text-ink hover:bg-forestSoft'
-          }`}
+          className="hidden border border-accent bg-accent px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-bg transition-colors hover:bg-fg hover:border-fg md:inline-block"
         >
           Available
         </a>
-        <button
-          onClick={() => goTo('contact')}
-          className={`label md:hidden ${scrolled ? 'text-ink' : 'text-paper'}`}
-        >
+        <button onClick={() => goTo('contact')} className="label text-fg md:hidden">
           Contact
         </button>
       </div>
@@ -334,80 +317,88 @@ function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="top" className="relative min-h-[100svh] overflow-hidden bg-ink text-paper">
-      {/* Full-bleed portrait plane */}
-      <motion.div
-        className="absolute inset-0"
-        initial={reduced ? false : { scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2.2, ease: EASE }}
-      >
-        <img
-          src={`${import.meta.env.BASE_URL}profile.jpg`}
-          alt=""
-          aria-hidden
-          className="h-full w-full object-cover object-[center_20%] opacity-55 grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
-      </motion.div>
+    <section id="top" className="relative min-h-[100svh] bg-bg">
+      <div className="mx-auto grid min-h-[100svh] max-w-sheet items-center gap-10 px-5 pb-16 pt-28 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+        <div>
+          <motion.p
+            className="label"
+            initial={reduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.7, ease: EASE }}
+          >
+            AI &amp; Full-Stack Engineer · CoalDev · Lahore
+          </motion.p>
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-sheet flex-col justify-end px-5 pb-14 pt-28 md:px-8 md:pb-16">
-        <motion.p
-          className="label text-paper/70"
-          initial={reduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
-        >
-          AI &amp; Full-Stack Engineer · CoalDev · Lahore
-        </motion.p>
+          <motion.h1
+            className="mt-5 font-display text-[14vw] font-extrabold leading-[0.9] tracking-[-0.04em] text-fg md:text-[6.5rem]"
+            initial={reduced ? false : { opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.85, ease: EASE }}
+          >
+            Haris
+            <br />
+            Umer
+          </motion.h1>
 
-        <motion.h1
-          className="mt-5 max-w-4xl font-display text-[14vw] font-extrabold leading-[0.9] tracking-[-0.04em] md:text-[7.5rem]"
-          initial={reduced ? false : { opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.9, ease: EASE }}
-        >
-          Haris
-          <br />
-          Umer
-        </motion.h1>
+          <motion.p
+            className="mt-6 max-w-xl text-base leading-relaxed text-quiet md:text-lg"
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.75, ease: EASE }}
+          >
+            I turn research — diffusion, NeRF/3D, LLM agents and computer vision — into products people can actually run.
+            One year out of FAST-NUCES, shipping AI end-to-end.
+          </motion.p>
 
-        <motion.p
-          className="mt-6 max-w-xl text-base leading-relaxed text-paper/75 md:text-lg"
-          initial={reduced ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 0.8, ease: EASE }}
-        >
-          I turn research — diffusion, NeRF/3D, LLM agents and computer vision — into products people can actually run.
-          One year out of FAST-NUCES, shipping AI end-to-end.
-        </motion.p>
+          <motion.div
+            className="mt-8 flex flex-wrap items-center gap-3"
+            initial={reduced ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55, duration: 0.7, ease: EASE }}
+          >
+            <button
+              onClick={() => goTo('work')}
+              className="inline-flex items-center gap-2 border border-accent bg-accent px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-bg transition-colors hover:bg-fg hover:border-fg"
+            >
+              Selected work <ArrowDownRight size={14} />
+            </button>
+            <button
+              onClick={() => goTo('contact')}
+              className="inline-flex items-center gap-2 border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-fg transition-colors hover:border-fg"
+            >
+              Get in touch
+            </button>
+            <div className="ml-1 flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.14em] text-quiet">
+              <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="hover:text-fg">
+                GitHub
+              </a>
+              <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="hover:text-fg">
+                LinkedIn
+              </a>
+            </div>
+          </motion.div>
+        </div>
 
+        {/* Framed portrait — not a washed-out cover */}
         <motion.div
-          className="mt-8 flex flex-wrap items-center gap-3"
-          initial={reduced ? false : { opacity: 0, y: 16 }}
+          className="mx-auto w-full max-w-[340px] lg:max-w-none lg:justify-self-end"
+          initial={reduced ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7, ease: EASE }}
+          transition={{ delay: 0.35, duration: 0.9, ease: EASE }}
         >
-          <button
-            onClick={() => goTo('work')}
-            className="inline-flex items-center gap-2 border border-paper bg-paper px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-forestSoft hover:border-forestSoft"
-          >
-            Selected work <ArrowDownRight size={14} />
-          </button>
-          <button
-            onClick={() => goTo('contact')}
-            className="inline-flex items-center gap-2 border border-paper/40 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-paper transition-colors hover:border-paper hover:bg-paper/10"
-          >
-            Get in touch
-          </button>
-          <div className="ml-1 flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.14em] text-paper/60">
-            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
-              GitHub
-            </a>
-            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
-              LinkedIn
-            </a>
+          <div className="relative">
+            <div className="absolute -inset-3 border border-line" aria-hidden />
+            <div className="absolute -right-3 -top-3 h-16 w-16 border-r border-t border-accent" aria-hidden />
+            <div className="absolute -bottom-3 -left-3 h-16 w-16 border-b border-l border-accent" aria-hidden />
+            <img
+              src={PROFILE}
+              alt="M. Haris Umer"
+              className="aspect-[4/5] w-full object-cover object-top"
+            />
+          </div>
+          <div className="mt-4 flex items-center justify-between label">
+            <span>Lahore, PK</span>
+            <span className="text-accent">@ CoalDev</span>
           </div>
         </motion.div>
       </div>
@@ -428,7 +419,7 @@ function About() {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr]">
           <Reveal>
-            <p className="font-display text-2xl font-semibold leading-snug tracking-tight text-ink md:text-3xl">
+            <p className="font-display text-2xl font-semibold leading-snug tracking-tight text-fg md:text-3xl">
               I like the messy middle — taking a model from a paper or prototype all the way to something dependable,
               fast and useful.
             </p>
@@ -439,11 +430,11 @@ function About() {
             </p>
           </Reveal>
 
-          <div className="grid gap-0">
+          <div>
             {CAPABILITIES.map((c, i) => (
               <Reveal key={c.title} delay={i * 0.05}>
                 <div className="border-t border-line py-5">
-                  <h3 className="font-display text-lg font-semibold text-ink">{c.title}</h3>
+                  <h3 className="font-display text-lg font-semibold text-fg">{c.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-quiet">{c.body}</p>
                 </div>
               </Reveal>
@@ -460,7 +451,7 @@ function Work() {
   const shown = PROJECTS.slice(0, limit);
 
   return (
-    <section id="work" className="bg-panel px-5 py-24 md:px-8">
+    <section id="work" className="bg-surface px-5 py-24 md:px-8">
       <div className="mx-auto max-w-sheet">
         <Reveal>
           <div className="flex items-end justify-between border-b border-line pb-4">
@@ -473,12 +464,12 @@ function Work() {
           {shown.map((p, i) => (
             <Reveal key={p.n} delay={Math.min(i, 5) * 0.04}>
               <article className="group grid gap-4 border-b border-line py-8 md:grid-cols-[4rem_1fr_auto] md:gap-8">
-                <span className="font-display text-sm font-semibold text-quiet transition-colors group-hover:text-forest">
+                <span className="font-display text-sm font-semibold text-quiet transition-colors group-hover:text-accent">
                   {p.n}
                 </span>
                 <div>
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h3 className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">{p.title}</h3>
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl">{p.title}</h3>
                     <span className="label">{p.category}</span>
                   </div>
                   <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
@@ -499,7 +490,7 @@ function Work() {
                       </a>
                     )}
                     {p.live && (
-                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="ink-link text-sm text-forest">
+                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="ink-link text-sm text-accent">
                         Live <ArrowUpRight size={14} />
                       </a>
                     )}
@@ -514,14 +505,14 @@ function Work() {
           {limit < PROJECTS.length ? (
             <button
               onClick={() => setLimit(PROJECTS.length)}
-              className="border border-ink px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-paper"
+              className="border border-fg px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-fg transition-colors hover:bg-fg hover:text-bg"
             >
               Show {PROJECTS.length - limit} more
             </button>
           ) : (
             <button
               onClick={() => setLimit(6)}
-              className="border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-quiet transition-colors hover:border-ink hover:text-ink"
+              className="border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-quiet transition-colors hover:border-fg hover:text-fg"
             >
               Show less
             </button>
@@ -550,11 +541,11 @@ function Skills() {
           {SKILLS.map((s, i) => (
             <Reveal key={s.group} delay={i * 0.05}>
               <div className="border-t border-line pt-5">
-                <h3 className="font-display text-xl font-semibold text-ink">{s.group}</h3>
+                <h3 className="font-display text-xl font-semibold text-fg">{s.group}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-quiet">{s.blurb}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {s.items.map((item) => (
-                    <span key={item} className="bg-forestSoft px-2.5 py-1 text-[12px] text-forest">
+                    <span key={item} className="bg-accentDim px-2.5 py-1 text-[12px] text-accent">
                       {item}
                     </span>
                   ))}
@@ -567,8 +558,8 @@ function Skills() {
         <div className="mt-16 grid gap-8 border-t border-line pt-10 md:grid-cols-3">
           {JOURNEY.map((j, i) => (
             <Reveal key={j.title} delay={i * 0.05}>
-              <p className="label text-forest">{j.period}</p>
-              <h4 className="mt-3 font-display text-lg font-semibold text-ink">{j.title}</h4>
+              <p className="label text-accent">{j.period}</p>
+              <h4 className="mt-3 font-display text-lg font-semibold text-fg">{j.title}</h4>
               <p className="mt-2 text-sm leading-relaxed text-quiet">{j.body}</p>
             </Reveal>
           ))}
@@ -580,27 +571,27 @@ function Skills() {
 
 function Contact() {
   return (
-    <section id="contact" className="bg-ink px-5 py-24 text-paper md:px-8">
+    <section id="contact" className="border-t border-line bg-surface px-5 py-24 md:px-8">
       <div className="mx-auto max-w-sheet">
         <Reveal>
-          <p className="label text-paper/55">Contact</p>
+          <p className="label">Contact</p>
           <h2 className="mt-4 max-w-3xl font-display text-5xl font-bold tracking-tight md:text-7xl">
             Let&apos;s build something.
           </h2>
-          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-paper/65">
+          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-quiet">
             Open to AI / full-stack roles, freelance builds and collaborations. Email is the fastest way to reach me.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-2 border border-paper bg-paper px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-forestSoft"
+              className="inline-flex items-center gap-2 border border-accent bg-accent px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-bg transition-colors hover:bg-fg hover:border-fg"
             >
               {EMAIL} <ArrowUpRight size={14} />
             </a>
-            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="label text-paper/60 hover:text-paper">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="label hover:text-fg">
               GitHub ↗
             </a>
-            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="label text-paper/60 hover:text-paper">
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="label hover:text-fg">
               LinkedIn ↗
             </a>
           </div>
@@ -612,11 +603,11 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-line bg-paper px-5 py-6 md:px-8">
+    <footer className="border-t border-line px-5 py-6 md:px-8">
       <div className="mx-auto flex max-w-sheet flex-col items-start justify-between gap-3 text-[11px] uppercase tracking-[0.14em] text-quiet sm:flex-row sm:items-center">
-        <span className="font-display font-semibold normal-case tracking-tight text-ink">Haris Umer</span>
+        <span className="font-display font-semibold normal-case tracking-tight text-fg">Haris Umer</span>
         <span>© {new Date().getFullYear()} · React + Framer Motion</span>
-        <button onClick={() => goTo('top')} className="hover:text-ink">
+        <button onClick={() => goTo('top')} className="hover:text-fg">
           Back to top ↑
         </button>
       </div>
@@ -633,8 +624,8 @@ export default function App() {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.25 });
 
   return (
-    <div className="min-h-screen">
-      <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-forest" />
+    <div className="min-h-screen bg-bg">
+      <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-accent" />
       <Header />
       <main>
         <Hero />

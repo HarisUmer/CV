@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   html {
@@ -12,26 +12,26 @@
   }
 
   body {
-    @apply bg-paper text-ink font-sans antialiased;
+    @apply bg-bg text-fg font-sans antialiased;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: #0f5c4c;
-    color: #f2f3f5;
+    background: #3ddba0;
+    color: #0c0d0f;
   }
 
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #f2f3f5;
+    background: #0c0d0f;
   }
   ::-webkit-scrollbar-thumb {
-    background: #c5c9d0;
+    background: #2a2d33;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #0f5c4c;
+    background: #3ddba0;
   }
 }
 
@@ -40,12 +40,8 @@
     @apply text-[11px] font-medium uppercase tracking-[0.18em] text-quiet;
   }
 
-  .rule {
-    @apply border-t border-line;
-  }
-
   .ink-link {
-    @apply relative inline-flex items-center gap-1 font-medium text-ink transition-colors hover:text-forest;
+    @apply relative inline-flex items-center gap-1 font-medium text-fg transition-colors hover:text-accent;
   }
   .ink-link::after {
     content: '';
