@@ -1,46 +1,34 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useMotionValue,
-  useReducedMotion,
-  type Variants,
-} from 'framer-motion';
-import { ArrowUpRight, ArrowDown, Plus, Minus } from 'lucide-react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
-/* ================================================================== */
-/* Data                                                                */
-/* ================================================================== */
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
 
 const NAV = [
-  { id: 'index', label: 'Index', n: '01' },
-  { id: 'about', label: 'About', n: '02' },
-  { id: 'work', label: 'Work', n: '03' },
-  { id: 'skills', label: 'Skills', n: '04' },
-  { id: 'contact', label: 'Contact', n: '05' },
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Work' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 const CAPABILITIES = [
   {
-    n: '01',
     title: 'Generative AI',
-    body: 'I build production diffusion pipelines — Stable Diffusion, ControlNet & IP-Adapter, NeRF and text-to-3D, image-to-video — and get them running on real, single-GPU hardware rather than a paper.',
+    body: 'Production diffusion pipelines — Stable Diffusion, ControlNet, IP-Adapter — plus NeRF / text-to-3D and image-to-video, engineered to run on real single-GPU hardware.',
   },
   {
-    n: '02',
     title: 'LLM & Agents',
-    body: 'RAG systems, LangGraph agentic workflows and tool-use automations that connect models to real documents, inboxes and business logic — not just chat demos.',
+    body: 'RAG systems, LangGraph workflows and tool-use automation that connect models to documents, inboxes and business logic — not chat demos.',
   },
   {
-    n: '03',
     title: 'Computer Vision',
-    body: 'Detection, tracking and spatial analytics with YOLO, ByteTrack and OpenCV — from a rough prototype to a pipeline that holds up on messy real-world footage.',
+    body: 'Detection, tracking and spatial analytics with YOLO, ByteTrack and OpenCV, from prototype to pipelines that survive messy real-world footage.',
   },
   {
-    n: '04',
     title: 'Full-Stack & Systems',
-    body: 'Next.js / React front-ends over FastAPI / Flask / Node, wired to Postgres, Redis and Celery — plus the distributed plumbing that keeps real-time systems consistent.',
+    body: 'Next.js / React over FastAPI / Flask / Node, with Postgres, Redis and Celery — and the distributed plumbing that keeps real-time systems consistent.',
   },
 ];
 
@@ -56,14 +44,14 @@ interface Project {
   live?: string;
 }
 
-const FEATURED: Project[] = [
+const PROJECTS: Project[] = [
   {
     n: '01',
     title: 'Artikon',
     year: '2025',
     category: 'Generative AI',
     role: 'Design + build',
-    body: 'A script-to-comic studio that keeps characters consistent across panels. Stable Diffusion with ControlNet and IP-Adapter for pose and identity control, orchestrated by LangGraph agents that plan each page, all served through a Next.js app.',
+    body: 'Script-to-comic studio with consistent characters across panels. Stable Diffusion + ControlNet + IP-Adapter for pose and identity, LangGraph agents to plan each page, served through a Next.js app.',
     tech: ['Next.js', 'Stable Diffusion', 'ControlNet', 'IP-Adapter', 'LangGraph'],
     repo: 'https://github.com/HarisUmer/artikon-comic-genai',
   },
@@ -73,7 +61,7 @@ const FEATURED: Project[] = [
     year: '2025',
     category: 'Generative AI',
     role: 'Solo build',
-    body: 'A local anime story-to-film generator. A one-line premise becomes a storyboard, then per-shot image-to-video, then a stitched film — engineered to run headless on a single 12 GB GPU with careful memory budgeting.',
+    body: 'Local anime story-to-film generator. A premise becomes a storyboard, then per-shot image-to-video, then a stitched film — memory-budgeted to run headless on one 12 GB GPU.',
     tech: ['Python', 'PyTorch', 'ComfyUI', 'Diffusion'],
     repo: 'https://github.com/HarisUmer/vedGen',
   },
@@ -83,7 +71,7 @@ const FEATURED: Project[] = [
     year: '2025',
     category: 'Distributed Systems',
     role: 'Architecture',
-    body: 'A coordination design for a real-time trading system: one authoritative manager, per-symbol engines, and Redis + Celery handling messaging and shared-state resolution so workers never fight over the same state. (Architecture only — no strategy or secrets.)',
+    body: 'Coordination design for a real-time trading system: one authoritative manager, per-symbol engines, Redis + Celery for messaging and shared-state resolution so workers never fight over the same state. Architecture only — no strategy or secrets.',
     tech: ['Redis', 'Celery', 'Python', 'Distributed Systems'],
     repo: 'https://github.com/HarisUmer/trading-engine-redis-architecture',
   },
@@ -93,7 +81,7 @@ const FEATURED: Project[] = [
     year: '2024',
     category: 'Computer Vision',
     role: 'Solo build',
-    body: 'A computer-vision pipeline for passenger-queue analytics: YOLO + ByteTrack for detection and tracking, ground-plane grid projection to map people into real space, and inter-person distance and queue-density estimation on top.',
+    body: 'Passenger-queue analytics: YOLO + ByteTrack for detection and tracking, ground-plane grid projection into real space, then inter-person distance and queue-density estimation.',
     tech: ['OpenCV', 'YOLO', 'ByteTrack', 'Python'],
     repo: 'https://github.com/HarisUmer/airport-queue-analytics',
   },
@@ -103,7 +91,7 @@ const FEATURED: Project[] = [
     year: '2025',
     category: 'AI Product · CoalDev',
     role: 'Contributor',
-    body: 'An AI-powered desktop file organizer I contributed to at CoalDev, now live at sortsy.ai. Public case study covering the product and architecture — a Next.js/Node front, a PySide6 desktop client and an LLM core (no proprietary code).',
+    body: 'AI-powered desktop file organizer I contributed to at CoalDev, live at sortsy.ai. Public case study of product and architecture — Next.js / Node front, PySide6 client, LLM core (no proprietary code).',
     tech: ['Next.js', 'Node', 'PySide6', 'LLM'],
     repo: 'https://github.com/HarisUmer/sortsy',
     live: 'https://sortsy.ai',
@@ -114,20 +102,17 @@ const FEATURED: Project[] = [
     year: '2024',
     category: 'Generative AI · 3D',
     role: 'Solo build',
-    body: 'Turns a single photo into a 3D mesh: diffusion-based multi-view synthesis (Zero123++ / Wonder3D) to hallucinate unseen angles, a face-refinement pass, and a from-scratch PyTorch NeRF to reconstruct the geometry.',
+    body: 'One photo to a 3D mesh: diffusion multi-view synthesis (Zero123++ / Wonder3D), face refinement, then a from-scratch PyTorch NeRF for geometry.',
     tech: ['PyTorch', 'Diffusers', 'NeRF', 'Zero123++'],
     repo: 'https://github.com/HarisUmer/single-image-to-3d',
   },
-];
-
-const MORE: Project[] = [
   {
     n: '07',
     title: 'DreamFusion from Scratch',
     year: '2024',
     category: 'Text-to-3D',
     role: 'Solo build',
-    body: 'Text-to-3D built from the ground up — a NeRF optimized via Score Distillation Sampling from Stable Diffusion, with marching-cubes mesh extraction.',
+    body: 'Text-to-3D from the ground up: NeRF optimized via Score Distillation Sampling from Stable Diffusion, with marching-cubes mesh extraction.',
     tech: ['PyTorch', 'NeRF', 'SDS'],
     repo: 'https://github.com/HarisUmer/dreamfusion-from-scratch',
   },
@@ -137,7 +122,7 @@ const MORE: Project[] = [
     year: '2024',
     category: 'LLM Automation',
     role: 'Solo build',
-    body: 'End-to-end procurement automation: searches Gmail, extracts quotes with OpenAI/Anthropic, ranks suppliers, and writes structured results to Google Sheets.',
+    body: 'Procurement automation: search Gmail, extract quotes with OpenAI / Anthropic, rank suppliers, write structured results to Google Sheets.',
     tech: ['Python', 'OpenAI', 'Anthropic', 'Google APIs'],
     repo: 'https://github.com/HarisUmer/aircraft-quote-automation',
   },
@@ -147,78 +132,38 @@ const MORE: Project[] = [
     year: '2024',
     category: 'LLM & Agents',
     role: 'Solo build',
-    body: 'A modular, agentic intake and dispute-management chatbot on a Gemini + Flask backend with a clean, extensible conversation flow.',
+    body: 'Modular agentic intake and dispute-management chatbot on Gemini + Flask, with an extensible conversation flow.',
     tech: ['Gemini', 'Flask', 'NLP'],
     repo: 'https://github.com/HarisUmer/llm-intake-chatbot',
   },
   {
     n: '10',
-    title: 'RAG · Semantic Chunking',
-    year: '2024',
-    category: 'Retrieval AI',
-    role: 'Solo build',
-    body: 'RAG over Word / PDF / news docs using BERT-based semantic (attention) chunking plus KMeans clustering for sharper, less-noisy retrieval.',
-    tech: ['BERT', 'RAG', 'KMeans'],
-    repo: 'https://github.com/HarisUmer/1st_Rag',
-  },
-  {
-    n: '11',
     title: 'Studify',
     year: '2024',
     category: 'Mobile · CV',
     role: 'Team build',
-    body: 'Real-time collaborative Android app: Agora video/audio + screen share, Firebase group chat, and MediaPipe hand-gesture control of a shared PowerPoint (Apache POI) through CameraX.',
+    body: 'Collaborative Android app: Agora video / audio + screen share, Firebase group chat, MediaPipe hand-gesture control of a shared PowerPoint via CameraX.',
     tech: ['Android', 'Agora', 'Firebase', 'MediaPipe'],
     repo: 'https://github.com/HarisUmer/Studify',
   },
   {
-    n: '12',
-    title: 'Custom Clothing Painter API',
-    year: '2024',
-    category: 'Generative AI',
-    role: 'Solo build',
-    body: 'A FastAPI service backed by Stable Diffusion inpainting that paints custom AI artwork onto shirts and hoodies from an image, a mask and a prompt.',
-    tech: ['FastAPI', 'Stable Diffusion', 'Inpainting'],
-    repo: 'https://github.com/HarisUmer/Customization_Shirts_API',
-  },
-  {
-    n: '13',
+    n: '11',
     title: 'LC Habit',
     year: '2026',
     category: 'Desktop Tools',
     role: 'Solo build',
-    body: 'A Windows habit trainer for daily LeetCode — local problem bank, real-account sync via Firefox, and a game-lock nudge when you go idle. Low-RAM, no tray daemon.',
+    body: 'Windows habit trainer for daily LeetCode — local problem bank, real-account sync via Firefox, game-lock nudge when idle. Low-RAM, no tray daemon.',
     tech: ['Python', 'Tkinter', 'SQLite'],
     repo: 'https://github.com/HarisUmer/leetcode_habit',
   },
   {
-    n: '14',
-    title: 'BlueX Browser',
-    year: '2024',
-    category: 'Mobile',
-    role: 'Solo build',
-    body: 'A privacy-focused Flutter mobile browser with proxy routing, ad-blocking, multi-tab, voice search and multi-language support.',
-    tech: ['Flutter', 'Dart', 'Firebase'],
-    repo: 'https://github.com/HarisUmer/BlueX-Browser',
-  },
-  {
-    n: '15',
-    title: 'Assembly Car Game',
-    year: '2023',
-    category: 'Low-level',
-    role: 'Solo build',
-    body: 'A retro car game in pure x86 Assembly (NASM), rendered on an 80×80 pixel screen — a deep dive into low-level graphics, input and collision.',
-    tech: ['x86 Assembly', 'NASM'],
-    repo: 'https://github.com/HarisUmer/Assembly-Car-Game',
-  },
-  {
-    n: '16',
+    n: '12',
     title: 'Hashim Traders / Hybrid Care',
     year: '2024',
     category: 'Full-Stack Web',
     role: 'Solo build',
-    body: 'Production React + TypeScript marketing and multi-business platforms for hybrid-vehicle battery & energy services, with polished Framer Motion animation throughout.',
-    tech: ['React', 'TypeScript', 'Framer Motion', 'Vite'],
+    body: 'Production React + TypeScript marketing and multi-business platforms for hybrid-vehicle battery and energy services.',
+    tech: ['React', 'TypeScript', 'Vite', 'Framer Motion'],
     repo: 'https://github.com/HarisUmer/Hashim_Traders',
   },
 ];
@@ -226,22 +171,22 @@ const MORE: Project[] = [
 const SKILLS = [
   {
     group: 'AI / Machine Learning',
-    blurb: 'The core of most of what I build — from training loops to deployed inference.',
+    blurb: 'Training loops through deployed inference — the core of most of what I build.',
     items: ['PyTorch', 'Diffusers', 'Transformers', 'LangGraph', 'LangChain', 'Hugging Face', 'OpenCV', 'YOLO', 'RAG'],
   },
   {
     group: 'Languages',
-    blurb: 'Python for AI and services; TypeScript for the web; C++ / Assembly when I need to go low.',
+    blurb: 'Python for AI and services; TypeScript for the web; C++ / Assembly when I go low.',
     items: ['Python', 'TypeScript', 'JavaScript', 'C++', 'Dart', 'Java / Kotlin'],
   },
   {
     group: 'Frameworks & Web',
-    blurb: 'How I turn models into products people actually open and use.',
+    blurb: 'How models become products people open and use.',
     items: ['Next.js', 'React', 'FastAPI', 'Flask', 'Node', 'Flutter', 'Tailwind CSS'],
   },
   {
     group: 'Data & Infrastructure',
-    blurb: 'The plumbing that keeps things fast, consistent and reproducible.',
+    blurb: 'Plumbing for speed, consistency and reproducibility.',
     items: ['PostgreSQL', 'Redis', 'Celery', 'Docker', 'Firebase', 'Git'],
   },
 ];
@@ -250,270 +195,219 @@ const JOURNEY = [
   {
     period: 'Now',
     title: 'AI / Full-Stack Engineer — CoalDev',
-    body: 'Building AI products end-to-end. Contributed to shipping Sortsy (sortsy.ai) and real-time backend systems; work spans generative AI, LLM/agentic systems and full-stack delivery.',
+    body: 'Building AI products end-to-end. Contributed to Sortsy (sortsy.ai) and real-time backends across generative AI, agents and full-stack delivery.',
   },
   {
     period: '2025 — present',
     title: 'Independent R&D → shipping',
-    body: 'Turned research — diffusion, NeRF/3D, LLM agents, computer vision — into 20+ runnable, open-sourced projects.',
+    body: 'Turned diffusion, NeRF/3D, LLM agents and computer vision research into 20+ runnable, open-sourced projects.',
   },
   {
     period: 'Class of 2025',
     title: 'BS Computer Science — FAST-NUCES, Lahore',
-    body: 'Strong foundations in algorithms, systems and machine learning, then straight into building AI in production.',
+    body: 'Algorithms, systems and machine learning foundations — then straight into building AI in production.',
   },
-];
-
-const MARQUEE = [
-  'Generative AI',
-  'Diffusion Models',
-  'Computer Vision',
-  'LLM Agents',
-  'NeRF / 3D',
-  'RAG',
-  'Full-Stack',
-  'Distributed Systems',
-  'PyTorch',
-  'Next.js',
 ];
 
 const EMAIL = 'harisumer58@gmail.com';
 const GITHUB = 'https://github.com/HarisUmer';
 const LINKEDIN = 'https://linkedin.com/in/harisumer1124';
 
-/* ================================================================== */
-/* Motion helpers                                                      */
-/* ================================================================== */
-
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const fade: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-};
+/* ------------------------------------------------------------------ */
+/* Primitives                                                          */
+/* ------------------------------------------------------------------ */
 
-function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  return (
-    <motion.div
-      className={className}
-      variants={fade}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* Heading that rises in line-by-line (each child is one line).
-   `mount` plays on load (for above-the-fold headings); otherwise on scroll-in. */
-function RiseLines({ lines, className, mount = false }: { lines: string[]; className?: string; mount?: boolean }) {
-  const anim = mount
-    ? ({ animate: { y: 0 } } as const)
-    : ({ whileInView: { y: 0 }, viewport: { once: true, margin: '-40px' } } as const);
-  return (
-    <span className={className}>
-      {lines.map((line, i) => (
-        <span key={i} className="line-mask">
-          <motion.span
-            className="block"
-            initial={{ y: '110%' }}
-            {...anim}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.35 + 0.08 * i }}
-          >
-            {line}
-          </motion.span>
-        </span>
-      ))}
-    </span>
-  );
-}
-
-/* Magnetic wrapper for buttons */
-function Magnetic({ children, className, strength = 0.35 }: { children: ReactNode; className?: string; strength?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+function Reveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
   const reduced = useReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 15, mass: 0.2 });
-  const sy = useSpring(y, { stiffness: 200, damping: 15, mass: 0.2 });
-
   return (
     <motion.div
-      ref={ref}
       className={className}
-      style={{ x: reduced ? 0 : sx, y: reduced ? 0 : sy, display: 'inline-block' }}
-      onMouseMove={(e) => {
-        if (reduced || !ref.current) return;
-        const r = ref.current.getBoundingClientRect();
-        x.set((e.clientX - (r.left + r.width / 2)) * strength);
-        y.set((e.clientY - (r.top + r.height / 2)) * strength);
-      }}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
+      initial={reduced ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, ease: EASE, delay }}
     >
       {children}
     </motion.div>
   );
 }
 
-/* ================================================================== */
-/* Chrome                                                              */
-/* ================================================================== */
+function goTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.offsetTop - 72, behavior: 'smooth' });
+}
 
-function useActive() {
-  const [active, setActive] = useState('index');
+/* ------------------------------------------------------------------ */
+/* Shell                                                               */
+/* ------------------------------------------------------------------ */
+
+function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('top');
+
   useEffect(() => {
     const onScroll = () => {
-      const pos = window.scrollY + 160;
+      setScrolled(window.scrollY > 16);
+      const pos = window.scrollY + 140;
+      let current = 'top';
       for (const { id } of NAV) {
         const el = document.getElementById(id);
-        if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
-          setActive(id);
-          break;
-        }
+        if (el && pos >= el.offsetTop) current = id;
       }
+      setActive(current);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  return active;
-}
-
-const goTo = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) window.scrollTo({ top: el.offsetTop - 24, behavior: 'smooth' });
-};
-
-function Header({ active }: { active: string }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
-        scrolled ? 'border-b border-line bg-bg/80 backdrop-blur-md' : 'border-b border-transparent'
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled ? 'border-b border-line bg-paper/90 backdrop-blur-md' : 'border-b border-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-12">
-        <button onClick={() => goTo('top')} className="font-mono text-xs uppercase tracking-[0.2em] text-ink">
-          M. Haris Umer<span className="text-accent">.</span>
+      <div className="mx-auto flex max-w-sheet items-center justify-between px-5 py-4 md:px-8">
+        <button
+          onClick={() => goTo('top')}
+          className={`font-display text-sm font-bold tracking-tight transition-colors ${
+            scrolled ? 'text-ink' : 'text-paper'
+          }`}
+        >
+          Haris Umer
         </button>
-
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {NAV.map((item) => (
             <button
               key={item.id}
               onClick={() => goTo(item.id)}
-              className="group flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.14em]"
+              className={`label transition-colors ${
+                scrolled
+                  ? active === item.id
+                    ? 'text-forest'
+                    : 'hover:text-ink'
+                  : active === item.id
+                    ? 'text-paper'
+                    : 'text-paper/65 hover:text-paper'
+              }`}
             >
-              <span className={`text-[10px] ${active === item.id ? 'text-accent' : 'text-muted'}`}>{item.n}</span>
-              <span className={active === item.id ? 'text-ink' : 'text-muted transition-colors group-hover:text-ink'}>
-                {item.label}
-              </span>
+              {item.label}
             </button>
           ))}
         </nav>
-
-        <a href={`mailto:${EMAIL}`} className="hidden font-mono text-xs uppercase tracking-[0.14em] text-ink md:block">
-          <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent align-middle" />
+        <a
+          href={`mailto:${EMAIL}`}
+          className={`hidden px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] transition-colors md:inline-block ${
+            scrolled
+              ? 'border border-ink bg-ink text-paper hover:bg-forest hover:border-forest'
+              : 'border border-paper bg-paper text-ink hover:bg-forestSoft'
+          }`}
+        >
           Available
         </a>
-
         <button
           onClick={() => goTo('contact')}
-          className="font-mono text-xs uppercase tracking-[0.14em] text-ink md:hidden"
+          className={`label md:hidden ${scrolled ? 'text-ink' : 'text-paper'}`}
         >
-          Menu
+          Contact
         </button>
       </div>
     </header>
   );
 }
 
-/* ================================================================== */
+/* ------------------------------------------------------------------ */
 /* Sections                                                            */
-/* ================================================================== */
+/* ------------------------------------------------------------------ */
 
 function Hero() {
+  const reduced = useReducedMotion();
+
   return (
-    <section id="top" className="relative px-6 pb-16 pt-28 lg:px-12 lg:pt-36">
-      <div className="bg-dots pointer-events-none absolute inset-0 -z-0" />
-      <div className="relative mx-auto max-w-[1400px]">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden bg-ink text-paper">
+      {/* Full-bleed portrait plane */}
+      <motion.div
+        className="absolute inset-0"
+        initial={reduced ? false : { scale: 1.08 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2.2, ease: EASE }}
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}profile.jpg`}
+          alt=""
+          aria-hidden
+          className="h-full w-full object-cover object-[center_20%] opacity-55 grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+      </motion.div>
+
+      <div className="relative mx-auto flex min-h-[100svh] max-w-sheet flex-col justify-end px-5 pb-14 pt-28 md:px-8 md:pb-16">
         <motion.p
-          className="eyebrow flex items-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1, duration: 0.8 }}
+          className="label text-paper/70"
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
         >
-          <span className="h-px w-8 bg-muted" />
-          AI &amp; Full-Stack Engineer — Est. 2025
+          AI &amp; Full-Stack Engineer · CoalDev · Lahore
         </motion.p>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <h1 className="font-serif text-[16vw] font-medium leading-[0.86] tracking-[-0.02em] sm:text-[13vw] lg:text-[9.5vw]">
-            <RiseLines lines={['Haris', 'Umer']} mount />
-          </h1>
+        <motion.h1
+          className="mt-5 max-w-4xl font-display text-[14vw] font-extrabold leading-[0.9] tracking-[-0.04em] md:text-[7.5rem]"
+          initial={reduced ? false : { opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.9, ease: EASE }}
+        >
+          Haris
+          <br />
+          Umer
+        </motion.h1>
 
-          <motion.div
-            className="relative w-40 shrink-0 sm:w-48 lg:w-[220px]"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.9, ease: EASE }}
-          >
-            <div className="grain relative overflow-hidden rounded-sm border border-line">
-              <img src="/profile.jpg" alt="M. Haris Umer" className="aspect-[4/5] w-full object-cover grayscale" />
-            </div>
-            <div className="mt-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em] text-muted">
-              <span>Lahore, PK</span>
-              <span>@ CoalDev</span>
-            </div>
-          </motion.div>
-        </div>
+        <motion.p
+          className="mt-6 max-w-xl text-base leading-relaxed text-paper/75 md:text-lg"
+          initial={reduced ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.8, ease: EASE }}
+        >
+          I turn research — diffusion, NeRF/3D, LLM agents and computer vision — into products people can actually run.
+          One year out of FAST-NUCES, shipping AI end-to-end.
+        </motion.p>
 
         <motion.div
-          className="mt-10 grid gap-8 border-t border-line pt-8 lg:grid-cols-[1.4fr_1fr]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.9 }}
+          className="mt-8 flex flex-wrap items-center gap-3"
+          initial={reduced ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.7, ease: EASE }}
         >
-          <p className="max-w-xl font-serif text-xl leading-snug text-ink sm:text-2xl">
-            I turn research — diffusion models, NeRF/3D, LLM agents and computer vision — into products people can
-            actually <span className="italic text-accent">run and use</span>.
-          </p>
-          <div className="flex flex-col justify-between gap-6">
-            <p className="max-w-sm text-sm leading-relaxed text-muted">
-              One year out of a CS degree from FAST-NUCES, Lahore. Now building AI end-to-end at CoalDev, and
-              open-sourcing everything else along the way.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Magnetic>
-                <button
-                  onClick={() => goTo('work')}
-                  className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-bg transition-colors"
-                >
-                  Selected work
-                  <ArrowDown size={14} className="transition-transform group-hover:translate-y-0.5" />
-                </button>
-              </Magnetic>
-              <Magnetic>
-                <button
-                  onClick={() => goTo('contact')}
-                  className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink"
-                >
-                  Get in touch
-                </button>
-              </Magnetic>
-            </div>
+          <button
+            onClick={() => goTo('work')}
+            className="inline-flex items-center gap-2 border border-paper bg-paper px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-forestSoft hover:border-forestSoft"
+          >
+            Selected work <ArrowDownRight size={14} />
+          </button>
+          <button
+            onClick={() => goTo('contact')}
+            className="inline-flex items-center gap-2 border border-paper/40 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-paper transition-colors hover:border-paper hover:bg-paper/10"
+          >
+            Get in touch
+          </button>
+          <div className="ml-1 flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.14em] text-paper/60">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
+              GitHub
+            </a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="hover:text-paper">
+              LinkedIn
+            </a>
           </div>
         </motion.div>
       </div>
@@ -521,61 +415,36 @@ function Hero() {
   );
 }
 
-function Marquee() {
-  const row = [...MARQUEE, ...MARQUEE];
-  return (
-    <div className="relative flex overflow-hidden border-y border-line py-5 select-none">
-      <div className="flex w-max shrink-0 animate-marquee items-center gap-8 pr-8">
-        {row.map((t, i) => (
-          <span key={i} className="flex items-center gap-8">
-            <span className="font-serif text-2xl text-ink/80">{t}</span>
-            <span className="text-accent">✦</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SectionTitle({ n, title, kicker }: { n: string; title: string; kicker?: string }) {
-  return (
-    <div className="mb-12 flex items-end justify-between border-b border-line pb-5">
-      <div className="flex items-baseline gap-4">
-        <span className="eyebrow">{n}</span>
-        <h2 className="font-serif text-4xl font-medium tracking-[-0.01em] sm:text-5xl">{title}</h2>
-      </div>
-      {kicker && <span className="hidden max-w-[16rem] text-right text-sm text-muted sm:block">{kicker}</span>}
-    </div>
-  );
-}
-
 function About() {
   return (
-    <section id="about" className="px-6 py-24 lg:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionTitle n="02" title="About" kicker="From research papers to products in people's hands." />
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr]">
+    <section id="about" className="px-5 py-24 md:px-8">
+      <div className="mx-auto max-w-sheet">
+        <Reveal>
+          <div className="flex items-end justify-between border-b border-line pb-4">
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">About</h2>
+            <span className="label hidden sm:block">From paper to product</span>
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr]">
           <Reveal>
-            <p className="font-serif text-2xl leading-snug text-ink sm:text-3xl">
-              I&apos;m an AI &amp; full-stack engineer who likes the messy middle — taking a model from a paper or a
-              prototype all the way to something dependable, fast and genuinely useful.
+            <p className="font-display text-2xl font-semibold leading-snug tracking-tight text-ink md:text-3xl">
+              I like the messy middle — taking a model from a paper or prototype all the way to something dependable,
+              fast and useful.
             </p>
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
-              A year ago I graduated in Computer Science from FAST-NUCES, Lahore. Since then I&apos;ve been building AI
-              products at CoalDev and shipping a steady stream of my own — generative-AI pipelines, computer-vision
-              systems, LLM agents, and the full-stack apps that wrap around them.
+            <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-quiet">
+              A year ago I graduated with a BS in Computer Science from FAST-NUCES, Lahore. Since then I&apos;ve been
+              building AI products at CoalDev and open-sourcing generative-AI pipelines, computer-vision systems, LLM
+              agents, and the full-stack apps around them.
             </p>
           </Reveal>
 
-          <div>
+          <div className="grid gap-0">
             {CAPABILITIES.map((c, i) => (
-              <Reveal key={c.n} delay={i * 0.05}>
-                <div className="group grid grid-cols-[auto_1fr] gap-6 border-b border-line py-6">
-                  <span className="font-mono text-xs text-muted transition-colors group-hover:text-accent">{c.n}</span>
-                  <div>
-                    <h3 className="font-serif text-2xl text-ink">{c.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{c.body}</p>
-                  </div>
+              <Reveal key={c.title} delay={i * 0.05}>
+                <div className="border-t border-line py-5">
+                  <h3 className="font-display text-lg font-semibold text-ink">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-quiet">{c.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -586,92 +455,78 @@ function About() {
   );
 }
 
-function ProjectRow({ p, open, onToggle }: { p: Project; open: boolean; onToggle: () => void }) {
-  return (
-    <div className="group relative border-b border-line">
-      {/* accent sweep on hover */}
-      <div className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-surface transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
-      <button onClick={onToggle} className="relative flex w-full items-center gap-4 px-2 py-6 text-left sm:gap-8 sm:py-7">
-        <span className="font-mono text-xs text-muted">{p.n}</span>
-        <span className="flex-1 font-serif text-2xl text-ink transition-transform duration-500 group-hover:translate-x-2 sm:text-4xl">
-          {p.title}
-        </span>
-        <span className="hidden font-mono text-[11px] uppercase tracking-[0.12em] text-muted md:block">{p.category}</span>
-        <span className="hidden font-mono text-xs text-muted lg:block">{p.year}</span>
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-colors group-hover:border-accent group-hover:text-accent">
-          {open ? <Minus size={14} /> : <Plus size={14} />}
-        </span>
-      </button>
-
-      <motion.div
-        initial={false}
-        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: EASE }}
-        className="relative overflow-hidden"
-      >
-        <div className="grid gap-6 px-2 pb-8 sm:grid-cols-[1fr_auto] sm:gap-10 sm:pl-14">
-          <div>
-            <p className="max-w-2xl text-sm leading-relaxed text-ink/80">{p.body}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {p.tech.map((t) => (
-                <span key={t} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-muted">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-start gap-5 font-mono text-xs uppercase tracking-[0.12em]">
-            <span className="text-muted">{p.role}</span>
-            {p.repo && (
-              <a href={p.repo} target="_blank" rel="noopener noreferrer" className="link inline-flex items-center gap-1 text-ink">
-                Code <ArrowUpRight size={13} />
-              </a>
-            )}
-            {p.live && (
-              <a href={p.live} target="_blank" rel="noopener noreferrer" className="link inline-flex items-center gap-1 text-accent">
-                Live <ArrowUpRight size={13} />
-              </a>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 function Work() {
-  const [open, setOpen] = useState<string | null>('01');
-  const [showMore, setShowMore] = useState(false);
-  const toggle = (n: string) => setOpen((cur) => (cur === n ? null : n));
+  const [limit, setLimit] = useState(6);
+  const shown = PROJECTS.slice(0, limit);
 
   return (
-    <section id="work" className="px-6 py-24 lg:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionTitle n="03" title="Selected Work" kicker="A few things I've designed, built and shipped. Tap to expand." />
+    <section id="work" className="bg-panel px-5 py-24 md:px-8">
+      <div className="mx-auto max-w-sheet">
         <Reveal>
-          <div className="border-t border-line">
-            {FEATURED.map((p) => (
-              <ProjectRow key={p.n} p={p} open={open === p.n} onToggle={() => toggle(p.n)} />
-            ))}
-            {showMore &&
-              MORE.map((p) => <ProjectRow key={p.n} p={p} open={open === p.n} onToggle={() => toggle(p.n)} />)}
+          <div className="flex items-end justify-between border-b border-line pb-4">
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">Selected work</h2>
+            <span className="label hidden sm:block">{PROJECTS.length} projects</span>
           </div>
         </Reveal>
 
+        <div className="mt-2">
+          {shown.map((p, i) => (
+            <Reveal key={p.n} delay={Math.min(i, 5) * 0.04}>
+              <article className="group grid gap-4 border-b border-line py-8 md:grid-cols-[4rem_1fr_auto] md:gap-8">
+                <span className="font-display text-sm font-semibold text-quiet transition-colors group-hover:text-forest">
+                  {p.n}
+                </span>
+                <div>
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">{p.title}</h3>
+                    <span className="label">{p.category}</span>
+                  </div>
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.tech.map((t) => (
+                      <span key={t} className="border border-line px-2.5 py-1 text-[11px] text-quiet">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col items-start gap-2 md:items-end md:pt-1">
+                  <span className="label">{p.year} · {p.role}</span>
+                  <div className="flex gap-4">
+                    {p.repo && (
+                      <a href={p.repo} target="_blank" rel="noopener noreferrer" className="ink-link text-sm">
+                        Code <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="ink-link text-sm text-forest">
+                        Live <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <button
-            onClick={() => setShowMore((v) => !v)}
-            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink"
-          >
-            {showMore ? 'Show less' : `Show ${MORE.length} more projects`}
-            {showMore ? <Minus size={14} /> : <Plus size={14} />}
-          </button>
-          <a
-            href={GITHUB}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink"
-          >
+          {limit < PROJECTS.length ? (
+            <button
+              onClick={() => setLimit(PROJECTS.length)}
+              className="border border-ink px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-paper"
+            >
+              Show {PROJECTS.length - limit} more
+            </button>
+          ) : (
+            <button
+              onClick={() => setLimit(6)}
+              className="border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-quiet transition-colors hover:border-ink hover:text-ink"
+            >
+              Show less
+            </button>
+          )}
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="ink-link text-sm">
             Everything on GitHub <ArrowUpRight size={14} />
           </a>
         </div>
@@ -682,18 +537,24 @@ function Work() {
 
 function Skills() {
   return (
-    <section id="skills" className="px-6 py-24 lg:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionTitle n="04" title="Skills" kicker="What I reach for, and how I use it." />
-        <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
+    <section id="skills" className="px-5 py-24 md:px-8">
+      <div className="mx-auto max-w-sheet">
+        <Reveal>
+          <div className="flex items-end justify-between border-b border-line pb-4">
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">Skills</h2>
+            <span className="label hidden sm:block">What I reach for</span>
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-2">
           {SKILLS.map((s, i) => (
             <Reveal key={s.group} delay={i * 0.05}>
-              <div className="border-t border-line pt-6">
-                <h3 className="font-serif text-2xl text-ink">{s.group}</h3>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{s.blurb}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
+              <div className="border-t border-line pt-5">
+                <h3 className="font-display text-xl font-semibold text-ink">{s.group}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-quiet">{s.blurb}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
                   {s.items.map((item) => (
-                    <span key={item} className="rounded-full border border-line px-3 py-1.5 font-mono text-xs text-ink/80">
+                    <span key={item} className="bg-forestSoft px-2.5 py-1 text-[12px] text-forest">
                       {item}
                     </span>
                   ))}
@@ -703,14 +564,12 @@ function Skills() {
           ))}
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-16 grid gap-8 border-t border-line pt-10 md:grid-cols-3">
           {JOURNEY.map((j, i) => (
             <Reveal key={j.title} delay={i * 0.05}>
-              <div className="h-full border-t border-line pt-5">
-                <span className="eyebrow">{j.period}</span>
-                <h4 className="mt-3 font-serif text-xl text-ink">{j.title}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{j.body}</p>
-              </div>
+              <p className="label text-forest">{j.period}</p>
+              <h4 className="mt-3 font-display text-lg font-semibold text-ink">{j.title}</h4>
+              <p className="mt-2 text-sm leading-relaxed text-quiet">{j.body}</p>
             </Reveal>
           ))}
         </div>
@@ -721,42 +580,31 @@ function Skills() {
 
 function Contact() {
   return (
-    <section id="contact" className="px-6 py-28 lg:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <span className="eyebrow flex items-center gap-3">
-          <span className="h-px w-8 bg-muted" /> 05 — Contact
-        </span>
-        <h2 className="mt-8 font-serif text-[12vw] font-medium leading-[0.9] tracking-[-0.02em] lg:text-[7vw]">
-          <RiseLines lines={["Let's build", 'something.']} mount />
-        </h2>
-
-        <div className="mt-12 grid gap-8 border-t border-line pt-8 sm:grid-cols-[1fr_auto] sm:items-end">
-          <p className="max-w-md text-sm leading-relaxed text-muted">
-            Open to AI / full-stack roles, freelance builds and interesting collaborations. Email is the fastest way to
-            reach me — I usually reply quickly.
+    <section id="contact" className="bg-ink px-5 py-24 text-paper md:px-8">
+      <div className="mx-auto max-w-sheet">
+        <Reveal>
+          <p className="label text-paper/55">Contact</p>
+          <h2 className="mt-4 max-w-3xl font-display text-5xl font-bold tracking-tight md:text-7xl">
+            Let&apos;s build something.
+          </h2>
+          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-paper/65">
+            Open to AI / full-stack roles, freelance builds and collaborations. Email is the fastest way to reach me.
           </p>
-          <Magnetic>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${EMAIL}`}
-              className="inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 font-mono text-xs uppercase tracking-[0.14em] text-bg"
+              className="inline-flex items-center gap-2 border border-paper bg-paper px-6 py-4 text-[11px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-forestSoft"
             >
-              {EMAIL} <ArrowUpRight size={15} />
+              {EMAIL} <ArrowUpRight size={14} />
             </a>
-          </Magnetic>
-        </div>
-
-        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.14em]">
-          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="link text-ink">
-            GitHub ↗
-          </a>
-          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="link text-ink">
-            LinkedIn ↗
-          </a>
-          <a href={`mailto:${EMAIL}`} className="link text-ink">
-            Email ↗
-          </a>
-          <span className="text-muted">Lahore, Pakistan</span>
-        </div>
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="label text-paper/60 hover:text-paper">
+              GitHub ↗
+            </a>
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="label text-paper/60 hover:text-paper">
+              LinkedIn ↗
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -764,11 +612,11 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-line px-6 py-8 lg:px-12">
-      <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:flex-row">
-        <span>M. Haris Umer<span className="text-accent">.</span></span>
-        <span>© {new Date().getFullYear()} — Built with React &amp; Framer Motion</span>
-        <button onClick={() => goTo('top')} className="transition-colors hover:text-ink">
+    <footer className="border-t border-line bg-paper px-5 py-6 md:px-8">
+      <div className="mx-auto flex max-w-sheet flex-col items-start justify-between gap-3 text-[11px] uppercase tracking-[0.14em] text-quiet sm:flex-row sm:items-center">
+        <span className="font-display font-semibold normal-case tracking-tight text-ink">Haris Umer</span>
+        <span>© {new Date().getFullYear()} · React + Framer Motion</span>
+        <button onClick={() => goTo('top')} className="hover:text-ink">
           Back to top ↑
         </button>
       </div>
@@ -776,25 +624,20 @@ function Footer() {
   );
 }
 
-/* ================================================================== */
+/* ------------------------------------------------------------------ */
 /* Root                                                                */
-/* ================================================================== */
+/* ------------------------------------------------------------------ */
 
 export default function App() {
-  const active = useActive();
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.25 });
 
   return (
-    <div className="grain relative min-h-screen">
-      <motion.div
-        style={{ scaleX: progress }}
-        className="fixed inset-x-0 top-0 z-50 h-[2px] origin-left bg-accent"
-      />
-      <Header active={active} />
-      <main id="index">
+    <div className="min-h-screen">
+      <motion.div style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-forest" />
+      <Header />
+      <main>
         <Hero />
-        <Marquee />
         <About />
         <Work />
         <Skills />

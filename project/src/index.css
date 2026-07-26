@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   html {
@@ -12,87 +12,56 @@
   }
 
   body {
-    @apply bg-bg text-ink font-sans antialiased;
+    @apply bg-paper text-ink font-sans antialiased;
     overflow-x: hidden;
-    font-feature-settings: 'ss01', 'cv01';
   }
 
   ::selection {
-    background: #c6f24e;
-    color: #0b0b0c;
+    background: #0f5c4c;
+    color: #f2f3f5;
   }
 
   ::-webkit-scrollbar {
-    width: 9px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0b0b0c;
+    background: #f2f3f5;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2f2f34;
-    border-radius: 9999px;
+    background: #c5c9d0;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #43434a;
+    background: #0f5c4c;
   }
 }
 
 @layer components {
-  /* Editorial label / eyebrow */
-  .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-muted;
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-[0.18em] text-quiet;
   }
 
-  /* Hairline rule */
   .rule {
     @apply border-t border-line;
   }
 
-  /* Animated underline for inline links */
-  .link {
-    @apply relative inline-block text-ink transition-colors;
+  .ink-link {
+    @apply relative inline-flex items-center gap-1 font-medium text-ink transition-colors hover:text-forest;
   }
-  .link::after {
+  .ink-link::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -2px;
-    height: 1px;
     width: 100%;
+    height: 1px;
     background: currentColor;
     transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .link:hover::after {
-    transform: scaleX(1);
     transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  /* Line mask used for clip-path style text reveal */
-  .line-mask {
-    display: block;
-    overflow: hidden;
+  .ink-link:hover::after {
+    transform: scaleX(1);
   }
-}
-
-/* Film grain overlay */
-.grain::before {
-  content: '';
-  position: fixed;
-  inset: -50%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Fine dotted background */
-.bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 30%, transparent 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
