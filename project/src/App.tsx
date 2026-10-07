@@ -42,11 +42,25 @@ interface Project {
   tech: string[];
   repo?: string;
   live?: string;
+  image?: string;
+  featured?: boolean;
 }
 
 const PROJECTS: Project[] = [
   {
     n: '01',
+    title: 'Aniga',
+    year: '2026',
+    category: 'Android · Recommendations',
+    role: 'Solo build',
+    featured: true,
+    image: 'https://raw.githubusercontent.com/HarisUmer/aniga/master/learning/assets/android-home.png',
+    body: 'A personal shelf for anime, manga, manhwa, and manhua. Ratings train a recommender, the reader opens the next chapter, and a public link shares your taste as a report a friend can open.',
+    tech: ['Kotlin / Java', 'Android', 'Spring Boot', 'PostgreSQL', 'Docker'],
+    repo: 'https://github.com/HarisUmer/aniga',
+  },
+  {
+    n: '02',
     title: 'Artikon',
     year: '2025',
     category: 'Generative AI',
@@ -56,7 +70,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/artikon-comic-genai',
   },
   {
-    n: '02',
+    n: '03',
     title: 'vedGen',
     year: '2025',
     category: 'Generative AI',
@@ -66,7 +80,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/vedGen',
   },
   {
-    n: '03',
+    n: '04',
     title: 'Trading Engine Architecture',
     year: '2025',
     category: 'Distributed Systems',
@@ -76,7 +90,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/trading-engine-redis-architecture',
   },
   {
-    n: '04',
+    n: '05',
     title: 'Airport Queue Analytics',
     year: '2024',
     category: 'Computer Vision',
@@ -86,7 +100,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/airport-queue-analytics',
   },
   {
-    n: '05',
+    n: '06',
     title: 'Sortsy',
     year: '2025',
     category: 'AI Product · CoalDev',
@@ -97,7 +111,7 @@ const PROJECTS: Project[] = [
     live: 'https://app.sortsy.ai/',
   },
   {
-    n: '06',
+    n: '07',
     title: 'Single Image → 3D',
     year: '2024',
     category: 'Generative AI · 3D',
@@ -107,7 +121,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/single-image-to-3d',
   },
   {
-    n: '07',
+    n: '08',
     title: 'DreamFusion from Scratch',
     year: '2024',
     category: 'Text-to-3D',
@@ -117,7 +131,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/dreamfusion-from-scratch',
   },
   {
-    n: '08',
+    n: '09',
     title: 'Aircraft Quote Automation',
     year: '2024',
     category: 'LLM Automation',
@@ -127,7 +141,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/aircraft-quote-automation',
   },
   {
-    n: '09',
+    n: '10',
     title: 'LLM Intake Chatbot',
     year: '2024',
     category: 'LLM & Agents',
@@ -137,7 +151,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/llm-intake-chatbot',
   },
   {
-    n: '10',
+    n: '11',
     title: 'Studify',
     year: '2024',
     category: 'Mobile · CV',
@@ -147,7 +161,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/Studify',
   },
   {
-    n: '11',
+    n: '12',
     title: 'LC Habit',
     year: '2026',
     category: 'Desktop Tools',
@@ -157,7 +171,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/leetcode_habit',
   },
   {
-    n: '12',
+    n: '13',
     title: 'Hashim Traders / Hybrid Care',
     year: '2024',
     category: 'Full-Stack Web',
@@ -182,7 +196,7 @@ const SKILLS = [
   {
     group: 'Frameworks & Web',
     blurb: 'How models become products people open and use.',
-    items: ['Next.js', 'React', 'FastAPI', 'Flask', 'Node', 'Flutter', 'Tailwind CSS'],
+    items: ['Next.js', 'React', 'Spring Boot', 'Android', 'FastAPI', 'Flask', 'Node', 'Flutter', 'Tailwind CSS'],
   },
   {
     group: 'Data & Infrastructure',
@@ -446,9 +460,28 @@ function About() {
   );
 }
 
+function ProjectLinks({ p }: { p: Project }) {
+  return (
+    <div className="flex gap-4">
+      {p.repo && (
+        <a href={p.repo} target="_blank" rel="noopener noreferrer" className="ink-link text-sm">
+          Code <ArrowUpRight size={14} />
+        </a>
+      )}
+      {p.live && (
+        <a href={p.live} target="_blank" rel="noopener noreferrer" className="ink-link text-sm text-accent">
+          Live <ArrowUpRight size={14} />
+        </a>
+      )}
+    </div>
+  );
+}
+
 function Work() {
   const [limit, setLimit] = useState(6);
-  const shown = PROJECTS.slice(0, limit);
+  const featured = PROJECTS.filter((p) => p.featured);
+  const rest = PROJECTS.filter((p) => !p.featured);
+  const shown = rest.slice(0, limit);
 
   return (
     <section id="work" className="bg-surface px-5 py-24 md:px-8">
@@ -460,10 +493,49 @@ function Work() {
           </div>
         </Reveal>
 
-        <div className="mt-2">
+        {featured.map((p) => (
+          <Reveal key={p.n}>
+            <article className="mt-8 grid overflow-hidden border border-line bg-bg md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+              <a
+                href={p.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-end justify-center bg-[#15120f] px-6 pt-8"
+              >
+                {p.image && (
+                  <img
+                    src={p.image}
+                    alt={`${p.title} on a phone`}
+                    className="max-h-[520px] w-auto shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+                  />
+                )}
+              </a>
+              <div className="flex flex-col justify-between border-t border-line p-7 md:border-l md:border-t-0 md:p-10">
+                <div>
+                  <p className="label text-accent">{p.category}</p>
+                  <h3 className="mt-3 font-display text-4xl font-bold tracking-tight text-fg md:text-5xl">{p.title}</h3>
+                  <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {p.tech.map((t) => (
+                      <span key={t} className="bg-accentDim px-2.5 py-1 text-[11px] text-accent">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                  <span className="label">{p.year} · {p.role}</span>
+                  <ProjectLinks p={p} />
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+
+        <div className="mt-4">
           {shown.map((p, i) => (
             <Reveal key={p.n} delay={Math.min(i, 5) * 0.04}>
-              <article className="group grid gap-4 border-b border-line py-8 md:grid-cols-[4rem_1fr_auto] md:gap-8">
+              <article className="group grid gap-4 border-b border-line py-8 transition-colors hover:bg-bg/60 md:grid-cols-[4rem_1fr_auto] md:gap-8 md:px-3">
                 <span className="font-display text-sm font-semibold text-quiet transition-colors group-hover:text-accent">
                   {p.n}
                 </span>
@@ -483,18 +555,7 @@ function Work() {
                 </div>
                 <div className="flex flex-col items-start gap-2 md:items-end md:pt-1">
                   <span className="label">{p.year} · {p.role}</span>
-                  <div className="flex gap-4">
-                    {p.repo && (
-                      <a href={p.repo} target="_blank" rel="noopener noreferrer" className="ink-link text-sm">
-                        Code <ArrowUpRight size={14} />
-                      </a>
-                    )}
-                    {p.live && (
-                      <a href={p.live} target="_blank" rel="noopener noreferrer" className="ink-link text-sm text-accent">
-                        Live <ArrowUpRight size={14} />
-                      </a>
-                    )}
-                  </div>
+                  <ProjectLinks p={p} />
                 </div>
               </article>
             </Reveal>
@@ -502,12 +563,12 @@ function Work() {
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          {limit < PROJECTS.length ? (
+          {limit < rest.length ? (
             <button
-              onClick={() => setLimit(PROJECTS.length)}
+              onClick={() => setLimit(rest.length)}
               className="border border-fg px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-fg transition-colors hover:bg-fg hover:text-bg"
             >
-              Show {PROJECTS.length - limit} more
+              Show {rest.length - limit} more
             </button>
           ) : (
             <button
