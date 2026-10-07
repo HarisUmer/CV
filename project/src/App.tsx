@@ -43,8 +43,12 @@ interface Project {
   repo?: string;
   live?: string;
   image?: string;
+  banner?: string;
+  shots?: string[];
   featured?: boolean;
 }
+
+const shot = (name: string) => `${import.meta.env.BASE_URL}aniga/${name}.jpg`;
 
 const PROJECTS: Project[] = [
   {
@@ -54,7 +58,9 @@ const PROJECTS: Project[] = [
     category: 'Android · Recommendations',
     role: 'Solo build',
     featured: true,
-    image: 'https://raw.githubusercontent.com/HarisUmer/aniga/master/learning/assets/android-home.png',
+    banner: shot('web-shelf'),
+    image: shot('home'),
+    shots: [shot('reader'), shot('foryou'), shot('discover')],
     body: 'A personal shelf for anime, manga, manhwa, and manhua. Ratings train a recommender, the reader opens the next chapter, and a public link shares your taste as a report a friend can open.',
     tech: ['Kotlin / Java', 'Android', 'Spring Boot', 'PostgreSQL', 'Docker'],
     repo: 'https://github.com/HarisUmer/aniga',
@@ -495,37 +501,60 @@ function Work() {
 
         {featured.map((p) => (
           <Reveal key={p.n}>
-            <article className="mt-8 grid overflow-hidden border border-line bg-bg md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-              <a
-                href={p.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-end justify-center bg-[#15120f] px-6 pt-8"
-              >
-                {p.image && (
+            <article className="mt-8 overflow-hidden border border-line bg-bg">
+              {p.banner && (
+                <a href={p.repo} target="_blank" rel="noopener noreferrer" className="block bg-[#15120f]">
                   <img
-                    src={p.image}
-                    alt={`${p.title} on a phone`}
-                    className="max-h-[520px] w-auto shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+                    src={p.banner}
+                    alt={`${p.title} shelf`}
+                    className="max-h-[440px] w-full object-cover object-top"
                   />
-                )}
-              </a>
-              <div className="flex flex-col justify-between border-t border-line p-7 md:border-l md:border-t-0 md:p-10">
-                <div>
-                  <p className="label text-accent">{p.category}</p>
-                  <h3 className="mt-3 font-display text-4xl font-bold tracking-tight text-fg md:text-5xl">{p.title}</h3>
-                  <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {p.tech.map((t) => (
-                      <span key={t} className="bg-accentDim px-2.5 py-1 text-[11px] text-accent">
-                        {t}
-                      </span>
-                    ))}
+                </a>
+              )}
+              <div className="grid md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+                <a
+                  href={p.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-end justify-center bg-[#15120f] px-8 pt-8"
+                >
+                  {p.image && (
+                    <img
+                      src={p.image}
+                      alt={`${p.title} on a phone`}
+                      className="max-h-[460px] w-auto shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+                    />
+                  )}
+                </a>
+                <div className="flex flex-col justify-between border-t border-line p-7 md:border-l md:border-t-0 md:p-10">
+                  <div>
+                    <p className="label text-accent">{p.category}</p>
+                    <h3 className="mt-3 font-display text-4xl font-bold tracking-tight text-fg md:text-5xl">{p.title}</h3>
+                    <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {p.tech.map((t) => (
+                        <span key={t} className="bg-accentDim px-2.5 py-1 text-[11px] text-accent">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                  <span className="label">{p.year} · {p.role}</span>
-                  <ProjectLinks p={p} />
+                  {p.shots && p.shots.length > 0 && (
+                    <div className="mt-6 flex gap-3">
+                      {p.shots.map((src) => (
+                        <img
+                          key={src}
+                          src={src}
+                          alt=""
+                          className="h-44 w-auto border border-white/10"
+                        />
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                    <span className="label">{p.year} · {p.role}</span>
+                    <ProjectLinks p={p} />
+                  </div>
                 </div>
               </div>
             </article>
