@@ -8,6 +8,7 @@ import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 const NAV = [
   { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
   { id: 'work', label: 'Work' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
@@ -48,9 +49,34 @@ interface Project {
   featured?: boolean;
 }
 
+const shot = (name: string) => `${import.meta.env.BASE_URL}work/${name}`;
+const aniga = (name: string) => `${import.meta.env.BASE_URL}aniga/${name}.jpg`;
+
 const PROJECTS: Project[] = [
   {
     n: '01',
+    title: 'Sortsy',
+    year: '2025–2026',
+    category: 'AI product · CoalDev',
+    role: 'AI/ML Engineer',
+    body: 'The product I worked on full-time at CoalDev. Sortsy reads a messy folder, understands the files, and proposes a clean structure. The product code stays private. I owned the Django REST API, Celery workers, the PySide6 desktop agent, and Amazon Bedrock captions indexed in Qdrant. The live product is the demo.',
+    tech: ['Django', 'Celery', 'PySide6', 'Qdrant', 'Amazon Bedrock'],
+    repo: 'https://github.com/HarisUmer/sortsy',
+    live: 'https://sortsy.ai',
+  },
+  {
+    n: '02',
+    title: 'Aniga',
+    year: '2026',
+    category: 'Android',
+    role: 'Mobile app',
+    body: 'A personal shelf for anime, manga, manhwa, and manhua. Ratings train what to open next, the reader loads the chapter, and a link shares that taste as a report. Android app, Spring Boot API, PostgreSQL.',
+    tech: ['Android', 'Kotlin', 'Spring Boot', 'PostgreSQL'],
+    repo: 'https://github.com/HarisUmer/aniga',
+    shots: [aniga('web-shelf'), aniga('home'), aniga('reader'), aniga('foryou')],
+  },
+  {
+    n: '03',
     title: 'Artikon',
     year: '2025',
     category: 'Generative AI',
@@ -58,9 +84,10 @@ const PROJECTS: Project[] = [
     body: 'Script-to-comic pipeline that holds character identity across panels. LangGraph runs resolve, mask, generate, composite, and an identity check. Stable Diffusion is conditioned with ControlNet and IP-Adapter, and LoRA style tags are ranked by embedding similarity. Served in a Next.js app.',
     tech: ['Next.js', 'Stable Diffusion', 'ControlNet', 'IP-Adapter', 'LangGraph'],
     repo: 'https://github.com/HarisUmer/artikon-comic-genai',
+    shots: [shot('artikon-1.jpeg'), shot('artikon-2.jpeg')],
   },
   {
-    n: '02',
+    n: '06',
     title: 'Aircraft Quote Automation',
     year: '2025',
     category: 'LLM Automation',
@@ -70,7 +97,7 @@ const PROJECTS: Project[] = [
     repo: 'https://github.com/HarisUmer/aircraft-quote-automation',
   },
   {
-    n: '03',
+    n: '16',
     title: 'Visible Electrical Defect Detection',
     year: '2026',
     category: 'Computer Vision',
@@ -78,6 +105,7 @@ const PROJECTS: Project[] = [
     body: 'YOLOv8n detectors for open, short, and damage defects in cables and PCBs, trained on 7,000+ labeled images. Outdoor cable damage scored 0.888 mAP50. CLAHE and sharpening raised precision from 0.81 to 0.86 on 484 test images. A screening aid, not a safety certificate.',
     tech: ['YOLOv8', 'PyTorch', 'OpenCV'],
     repo: 'https://github.com/HarisUmer/circuit-fault-vision',
+    shots: [shot('defect-cable.jpg'), shot('defect-batch.jpg'), shot('defect-curves.png')],
   },
   {
     n: '04',
@@ -88,6 +116,7 @@ const PROJECTS: Project[] = [
     body: 'Coordination design for a real-time trading system: one authoritative manager, per-symbol engines, Redis + Celery for messaging and shared-state resolution so workers never fight over the same state. Architecture only — no strategy or secrets.',
     tech: ['Redis', 'Celery', 'Python', 'Distributed Systems'],
     repo: 'https://github.com/HarisUmer/trading-engine-redis-architecture',
+    shots: [shot('trading-architecture.png')],
   },
   {
     n: '05',
@@ -98,17 +127,7 @@ const PROJECTS: Project[] = [
     body: 'Passenger-queue analytics: YOLO + ByteTrack for detection and tracking, ground-plane grid projection into real space, then inter-person distance and queue-density estimation.',
     tech: ['OpenCV', 'YOLO', 'ByteTrack', 'Python'],
     repo: 'https://github.com/HarisUmer/airport-queue-analytics',
-  },
-  {
-    n: '06',
-    title: 'Sortsy',
-    year: '2025',
-    category: 'AI Product · CoalDev',
-    role: 'Contributor',
-    body: 'AI file organizer I contributed to at CoalDev (July 2025 – September 2026). My work was the Django REST API, Celery workers, the PySide6 desktop agent, and Amazon Bedrock captions indexed in Qdrant. Case study only — no proprietary code.',
-    tech: ['Django', 'Celery', 'PySide6', 'Qdrant', 'Amazon Bedrock'],
-    repo: 'https://github.com/HarisUmer/sortsy',
-    live: 'https://app.sortsy.ai/',
+    shots: [shot('airport-grid.png'), shot('airport-bilinear.png')],
   },
   {
     n: '07',
@@ -146,9 +165,10 @@ const PROJECTS: Project[] = [
     year: '2025',
     category: 'LLM & Agents',
     role: 'Nexpred internship',
-    body: 'Modular agentic intake and dispute-management chatbot on Gemini + Flask, with an extensible conversation flow.',
-    tech: ['Gemini', 'Flask', 'NLP'],
+    body: 'Intake and dispute assistant. The user talks to a Flask screen. Gemini calls one tool at a time: extract, validate, or route, then the reply comes back through the same screen.',
+    tech: ['Gemini', 'Flask', 'Tool calling'],
     repo: 'https://github.com/HarisUmer/llm-intake-chatbot',
+    shots: [shot('chatbot-architecture.png')],
   },
   {
     n: '11',
@@ -159,9 +179,21 @@ const PROJECTS: Project[] = [
     body: 'Collaborative Android app: Agora video / audio + screen share, Firebase group chat, MediaPipe hand-gesture control of a shared PowerPoint via CameraX.',
     tech: ['Android', 'Agora', 'Firebase', 'MediaPipe'],
     repo: 'https://github.com/HarisUmer/Studify',
+    shots: [shot('studify-login.png'), shot('studify-chat.png'), shot('studify-call.png')],
   },
   {
     n: '12',
+    title: 'Agorawork',
+    year: '2024',
+    category: 'Android',
+    role: 'Mobile app',
+    body: 'Live video with hand-landmark tracking. MediaPipe reads the hand from the camera and sends the landmarks over an Agora call.',
+    tech: ['Android', 'Agora', 'MediaPipe'],
+    repo: 'https://github.com/HarisUmer/Agorawork',
+    shots: [shot('agora-call.png'), shot('agora-hands.png')],
+  },
+  {
+    n: '14',
     title: 'LC Habit',
     year: '2026',
     category: 'Desktop Tools',
@@ -226,7 +258,7 @@ const JOURNEY = [
 const EMAIL = 'harisumer58@gmail.com';
 const GITHUB = 'https://github.com/HarisUmer';
 const LINKEDIN = 'https://linkedin.com/in/harisumer1124';
-const PROFILE = `${import.meta.env.BASE_URL}profile.jpg`;
+const PROFILE = `${import.meta.env.BASE_URL}profile-cutout.png`;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -406,16 +438,11 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.9, ease: EASE }}
         >
-          <div className="relative">
-            <div className="absolute -inset-3 border border-line" aria-hidden />
-            <div className="absolute -right-3 -top-3 h-16 w-16 border-r border-t border-accent" aria-hidden />
-            <div className="absolute -bottom-3 -left-3 h-16 w-16 border-b border-l border-accent" aria-hidden />
-            <img
-              src={PROFILE}
-              alt="Muhammad Haris Umer"
-              className="aspect-[4/5] w-full object-cover object-top"
-            />
-          </div>
+          <img
+            src={PROFILE}
+            alt="Muhammad Haris Umer"
+            className="mx-auto max-h-[520px] w-auto object-contain"
+          />
           <div className="mt-4 flex items-center justify-between label">
             <span>Lahore, PK</span>
             <span className="text-accent">Open to work</span>
@@ -444,9 +471,9 @@ function About() {
               fast and useful.
             </p>
             <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-quiet">
-              I graduated with a BS in Computer Science from FAST-NUCES, Lahore, in 2025. At CoalDev I shipped
-              Sortsy search and a Redis/Celery trading path. The public projects below are the same ones on my CV:
-              Artikon, aircraft quote extraction, and the cable defect detector.
+              I graduated with a BS in Computer Science from FAST-NUCES, Lahore, in 2025. The full-time year was
+              at CoalDev, on Sortsy. Aniga is the Android shelf. Artikon, the quote extractor, and the cable
+              detector are the public builds with pictures below.
             </p>
           </Reveal>
 
@@ -471,7 +498,7 @@ function ProjectLinks({ p }: { p: Project }) {
     <div className="flex gap-4">
       {p.repo && (
         <a href={p.repo} target="_blank" rel="noopener noreferrer" className="ink-link text-sm">
-          Code <ArrowUpRight size={14} />
+          {p.title === 'Sortsy' ? 'Case study' : 'Code'} <ArrowUpRight size={14} />
         </a>
       )}
       {p.live && (
@@ -483,10 +510,34 @@ function ProjectLinks({ p }: { p: Project }) {
   );
 }
 
+function Experience() {
+  return (
+    <section id="experience" className="px-5 py-24 md:px-8">
+      <div className="mx-auto max-w-sheet">
+        <Reveal>
+          <div className="flex items-end justify-between border-b border-line pb-4">
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">Experience</h2>
+            <span className="label hidden sm:block">2 years</span>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {JOURNEY.map((j, i) => (
+            <Reveal key={j.title} delay={i * 0.05}>
+              <p className="label text-accent">{j.period}</p>
+              <h3 className="mt-3 font-display text-xl font-semibold text-fg">{j.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-quiet">{j.body}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Work() {
-  const [limit, setLimit] = useState(6);
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const [limit, setLimit] = useState(4);
+  const visual = PROJECTS.filter((p) => (p.shots && p.shots.length > 0) || p.live);
+  const rest = PROJECTS.filter((p) => !((p.shots && p.shots.length > 0) || p.live));
   const shown = rest.slice(0, limit);
 
   return (
@@ -499,62 +550,32 @@ function Work() {
           </div>
         </Reveal>
 
-        {featured.map((p) => (
+        {visual.map((p) => (
           <Reveal key={p.n}>
             <article className="mt-8 overflow-hidden border border-line bg-bg">
-              {p.banner && (
-                <a href={p.repo} target="_blank" rel="noopener noreferrer" className="block bg-[#15120f]">
-                  <img
-                    src={p.banner}
-                    alt={`${p.title} shelf`}
-                    className="max-h-[440px] w-full object-cover object-top"
-                  />
-                </a>
+              {p.shots && p.shots.length > 0 && (
+                <div className="grid gap-px bg-line sm:grid-cols-2">
+                  {p.shots.map((src) => (
+                    <div key={src} className="flex items-center justify-center bg-[#101114] p-3">
+                      <img src={src} alt={`${p.title}`} className="max-h-80 w-full object-contain" />
+                    </div>
+                  ))}
+                </div>
               )}
-              <div className="grid md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
-                <a
-                  href={p.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-end justify-center bg-[#15120f] px-8 pt-8"
-                >
-                  {p.image && (
-                    <img
-                      src={p.image}
-                      alt={`${p.title} on a phone`}
-                      className="max-h-[460px] w-auto shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
-                    />
-                  )}
-                </a>
-                <div className="flex flex-col justify-between border-t border-line p-7 md:border-l md:border-t-0 md:p-10">
-                  <div>
-                    <p className="label text-accent">{p.category}</p>
-                    <h3 className="mt-3 font-display text-4xl font-bold tracking-tight text-fg md:text-5xl">{p.title}</h3>
-                    <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {p.tech.map((t) => (
-                        <span key={t} className="bg-accentDim px-2.5 py-1 text-[11px] text-accent">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  {p.shots && p.shots.length > 0 && (
-                    <div className="mt-6 flex gap-3">
-                      {p.shots.map((src) => (
-                        <img
-                          key={src}
-                          src={src}
-                          alt=""
-                          className="h-44 w-auto border border-white/10"
-                        />
-                      ))}
-                    </div>
-                  )}
-                  <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                    <span className="label">{p.year} · {p.role}</span>
-                    <ProjectLinks p={p} />
-                  </div>
+              <div className="p-7 md:p-10">
+                <p className="label text-accent">{p.category}</p>
+                <h3 className="mt-3 font-display text-4xl font-bold tracking-tight text-fg md:text-5xl">{p.title}</h3>
+                <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-quiet">{p.body}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {p.tech.map((t) => (
+                    <span key={t} className="bg-accentDim px-2.5 py-1 text-[11px] text-accent">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                  <span className="label">{p.year} · {p.role}</span>
+                  <ProjectLinks p={p} />
                 </div>
               </div>
             </article>
@@ -601,7 +622,7 @@ function Work() {
             </button>
           ) : (
             <button
-              onClick={() => setLimit(6)}
+              onClick={() => setLimit(4)}
               className="border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-quiet transition-colors hover:border-fg hover:text-fg"
             >
               Show less
@@ -645,15 +666,6 @@ function Skills() {
           ))}
         </div>
 
-        <div className="mt-16 grid gap-8 border-t border-line pt-10 md:grid-cols-3">
-          {JOURNEY.map((j, i) => (
-            <Reveal key={j.title} delay={i * 0.05}>
-              <p className="label text-accent">{j.period}</p>
-              <h4 className="mt-3 font-display text-lg font-semibold text-fg">{j.title}</h4>
-              <p className="mt-2 text-sm leading-relaxed text-quiet">{j.body}</p>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -720,6 +732,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <Experience />
         <Work />
         <Skills />
         <Contact />
