@@ -15,20 +15,20 @@ const NAV = [
 
 const CAPABILITIES = [
   {
-    title: 'Generative AI',
-    body: 'Production diffusion pipelines — Stable Diffusion, ControlNet, IP-Adapter — plus NeRF / text-to-3D and image-to-video, engineered to run on real single-GPU hardware.',
+    title: 'LLM & Agents',
+    body: 'Tool calling, agentic RAG, and structured extraction with validated outputs. LangGraph workflows that connect models to documents, inboxes, and business logic.',
   },
   {
-    title: 'LLM & Agents',
-    body: 'RAG systems, LangGraph workflows and tool-use automation that connect models to documents, inboxes and business logic — not chat demos.',
+    title: 'Production Python',
+    body: 'Django, FastAPI, and Flask services with PostgreSQL, Redis, and Celery, including the single-writer coordination that keeps a live system consistent.',
+  },
+  {
+    title: 'Generative pipelines',
+    body: 'Stable Diffusion with ControlNet and IP-Adapter, orchestrated so the same character holds across panels.',
   },
   {
     title: 'Computer Vision',
-    body: 'Detection, tracking and spatial analytics with YOLO, ByteTrack and OpenCV, from prototype to pipelines that survive messy real-world footage.',
-  },
-  {
-    title: 'Full-Stack & Systems',
-    body: 'Next.js / React over FastAPI / Flask / Node, with Postgres, Redis and Celery — and the distributed plumbing that keeps real-time systems consistent.',
+    body: 'YOLO, ByteTrack, and homography for queue metrics, plus YOLOv8n defect detectors with held-out mAP.',
   },
 ];
 
@@ -48,42 +48,36 @@ interface Project {
   featured?: boolean;
 }
 
-const shot = (name: string) => `${import.meta.env.BASE_URL}aniga/${name}.jpg`;
-
 const PROJECTS: Project[] = [
   {
     n: '01',
-    title: 'Aniga',
-    year: '2026',
-    category: 'Android · Recommendations',
-    role: 'Solo build',
-    featured: true,
-    banner: shot('web-shelf'),
-    image: shot('home'),
-    shots: [shot('reader'), shot('foryou'), shot('discover')],
-    body: 'A personal shelf for anime, manga, manhwa, and manhua. Ratings train a recommender, the reader opens the next chapter, and a public link shares your taste as a report a friend can open.',
-    tech: ['Kotlin / Java', 'Android', 'Spring Boot', 'PostgreSQL', 'Docker'],
-    repo: 'https://github.com/HarisUmer/aniga',
-  },
-  {
-    n: '02',
     title: 'Artikon',
     year: '2025',
     category: 'Generative AI',
-    role: 'Design + build',
-    body: 'Script-to-comic studio with consistent characters across panels. Stable Diffusion + ControlNet + IP-Adapter for pose and identity, LangGraph agents to plan each page, served through a Next.js app.',
+    role: 'Group final-year project',
+    body: 'Script-to-comic pipeline that holds character identity across panels. LangGraph runs resolve, mask, generate, composite, and an identity check. Stable Diffusion is conditioned with ControlNet and IP-Adapter, and LoRA style tags are ranked by embedding similarity. Served in a Next.js app.',
     tech: ['Next.js', 'Stable Diffusion', 'ControlNet', 'IP-Adapter', 'LangGraph'],
     repo: 'https://github.com/HarisUmer/artikon-comic-genai',
   },
   {
-    n: '03',
-    title: 'vedGen',
+    n: '02',
+    title: 'Aircraft Quote Automation',
     year: '2025',
-    category: 'Generative AI',
+    category: 'LLM Automation',
+    role: 'Client project',
+    body: 'Procurement automation: read supplier threads from Gmail, extract quotes with OpenAI or Anthropic into Pydantic-validated fields, rank suppliers, and write the shortlist to Google Sheets.',
+    tech: ['Python', 'OpenAI', 'Anthropic', 'Pydantic', 'Google APIs'],
+    repo: 'https://github.com/HarisUmer/aircraft-quote-automation',
+  },
+  {
+    n: '03',
+    title: 'Visible Electrical Defect Detection',
+    year: '2026',
+    category: 'Computer Vision',
     role: 'Solo build',
-    body: 'Local anime story-to-film generator. A premise becomes a storyboard, then per-shot image-to-video, then a stitched film — memory-budgeted to run headless on one 12 GB GPU.',
-    tech: ['Python', 'PyTorch', 'ComfyUI', 'Diffusion'],
-    repo: 'https://github.com/HarisUmer/vedGen',
+    body: 'YOLOv8n detectors for open, short, and damage defects in cables and PCBs, trained on 7,000+ labeled images. Outdoor cable damage scored 0.888 mAP50. CLAHE and sharpening raised precision from 0.81 to 0.86 on 484 test images. A screening aid, not a safety certificate.',
+    tech: ['YOLOv8', 'PyTorch', 'OpenCV'],
+    repo: 'https://github.com/HarisUmer/circuit-fault-vision',
   },
   {
     n: '04',
@@ -98,9 +92,9 @@ const PROJECTS: Project[] = [
   {
     n: '05',
     title: 'Airport Queue Analytics',
-    year: '2024',
+    year: '2025',
     category: 'Computer Vision',
-    role: 'Solo build',
+    role: 'Nexpred internship',
     body: 'Passenger-queue analytics: YOLO + ByteTrack for detection and tracking, ground-plane grid projection into real space, then inter-person distance and queue-density estimation.',
     tech: ['OpenCV', 'YOLO', 'ByteTrack', 'Python'],
     repo: 'https://github.com/HarisUmer/airport-queue-analytics',
@@ -111,8 +105,8 @@ const PROJECTS: Project[] = [
     year: '2025',
     category: 'AI Product · CoalDev',
     role: 'Contributor',
-    body: 'AI-powered desktop file organizer I contributed to at CoalDev. Live product at app.sortsy.ai. Public case study of product and architecture — Next.js / Node front, PySide6 client, LLM core (no proprietary code).',
-    tech: ['Next.js', 'Node', 'PySide6', 'LLM'],
+    body: 'AI file organizer I contributed to at CoalDev (July 2025 – September 2026). My work was the Django REST API, Celery workers, the PySide6 desktop agent, and Amazon Bedrock captions indexed in Qdrant. Case study only — no proprietary code.',
+    tech: ['Django', 'Celery', 'PySide6', 'Qdrant', 'Amazon Bedrock'],
     repo: 'https://github.com/HarisUmer/sortsy',
     live: 'https://app.sortsy.ai/',
   },
@@ -138,20 +132,20 @@ const PROJECTS: Project[] = [
   },
   {
     n: '09',
-    title: 'Aircraft Quote Automation',
-    year: '2024',
-    category: 'LLM Automation',
-    role: 'Solo build',
-    body: 'Procurement automation: search Gmail, extract quotes with OpenAI / Anthropic, rank suppliers, write structured results to Google Sheets.',
-    tech: ['Python', 'OpenAI', 'Anthropic', 'Google APIs'],
-    repo: 'https://github.com/HarisUmer/aircraft-quote-automation',
+    title: 'vedGen',
+    year: '2026',
+    category: 'Generative AI',
+    role: 'In progress',
+    body: 'Local premise-to-video pipeline designed for one 12 GB GPU: storyboard, then per-shot image-to-video. No sample film published yet.',
+    tech: ['Python', 'PyTorch', 'ComfyUI'],
+    repo: 'https://github.com/HarisUmer/vedGen',
   },
   {
     n: '10',
     title: 'LLM Intake Chatbot',
-    year: '2024',
+    year: '2025',
     category: 'LLM & Agents',
-    role: 'Solo build',
+    role: 'Nexpred internship',
     body: 'Modular agentic intake and dispute-management chatbot on Gemini + Flask, with an extensible conversation flow.',
     tech: ['Gemini', 'Flask', 'NLP'],
     repo: 'https://github.com/HarisUmer/llm-intake-chatbot',
@@ -191,41 +185,41 @@ const PROJECTS: Project[] = [
 const SKILLS = [
   {
     group: 'AI / Machine Learning',
-    blurb: 'Training loops through deployed inference — the core of most of what I build.',
-    items: ['PyTorch', 'Diffusers', 'Transformers', 'LangGraph', 'LangChain', 'Hugging Face', 'OpenCV', 'YOLO', 'RAG'],
+    blurb: 'The work on the CV: agents, retrieval, diffusion, and detectors.',
+    items: ['LangGraph', 'RAG', 'Tool Calling', 'PyTorch', 'YOLO', 'ByteTrack', 'Stable Diffusion', 'ControlNet', 'IP-Adapter'],
   },
   {
     group: 'Languages',
-    blurb: 'Python for AI and services; TypeScript for the web; C++ / Assembly when I go low.',
-    items: ['Python', 'TypeScript', 'JavaScript', 'C++', 'Dart', 'Java / Kotlin'],
+    blurb: 'Python for the models and services. TypeScript for the web apps around them.',
+    items: ['Python', 'TypeScript', 'JavaScript'],
   },
   {
-    group: 'Frameworks & Web',
-    blurb: 'How models become products people open and use.',
-    items: ['Next.js', 'React', 'Spring Boot', 'Android', 'FastAPI', 'Flask', 'Node', 'Flutter', 'Tailwind CSS'],
+    group: 'Backend',
+    blurb: 'The production path at CoalDev and the client automations.',
+    items: ['Django', 'FastAPI', 'Flask', 'Celery', 'PostgreSQL', 'Redis', 'Qdrant', 'Amazon Bedrock'],
   },
   {
-    group: 'Data & Infrastructure',
-    blurb: 'Plumbing for speed, consistency and reproducibility.',
-    items: ['PostgreSQL', 'Redis', 'Celery', 'Docker', 'Firebase', 'Git'],
+    group: 'Product',
+    blurb: 'Interfaces on the projects above.',
+    items: ['Next.js', 'React', 'PySide6', 'Git'],
   },
 ];
 
 const JOURNEY = [
   {
-    period: 'Now',
-    title: 'AI / Full-Stack Engineer — CoalDev',
-    body: 'Building AI products end-to-end. Contributed to Sortsy (app.sortsy.ai) and real-time backends across generative AI, agents and full-stack delivery.',
+    period: 'Jul 2025 – Sep 2026',
+    title: 'AI/ML Engineer — CoalDev',
+    body: 'Full-time. Sortsy semantic search (Django, Celery, Qdrant, Amazon Bedrock, PySide6) and a Redis/Celery trading path at about 6,000 signals/sec (estimated).',
   },
   {
-    period: '2025 — present',
-    title: 'Independent R&D → shipping',
-    body: 'Turned diffusion, NeRF/3D, LLM agents and computer vision research into 20+ runnable, open-sourced projects.',
+    period: '2024 – 2025',
+    title: 'AI/ML internships',
+    body: 'Nexpred (Apr–Jun 2025): airport queue analytics and a Gemini intake assistant. BitPix (Jul–Sep 2024): hierarchical legal RAG and speech-enabled chatbots.',
   },
   {
-    period: 'Class of 2025',
-    title: 'BS Computer Science — FAST-NUCES, Lahore',
-    body: 'Algorithms, systems and machine learning foundations — then straight into building AI in production.',
+    period: 'Aug 2021 – Jun 2025',
+    title: 'BS Computer Science — FAST-NUCES',
+    body: 'Final-year project: Artikon, a group script-to-comic pipeline with LangGraph and Stable Diffusion.',
   },
 ];
 
@@ -346,7 +340,7 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.7, ease: EASE }}
           >
-            AI &amp; Full-Stack Engineer · CoalDev · Lahore
+            AI/ML Engineer · 2 years · Lahore
           </motion.p>
 
           <motion.h1
@@ -366,8 +360,8 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.75, ease: EASE }}
           >
-            I turn research — diffusion, NeRF/3D, LLM agents and computer vision — into products people can actually run.
-            One year out of FAST-NUCES, shipping AI end-to-end.
+            I build LLM and agent systems, and the Python backends that keep them running. Two years of
+            shipping, including full-time work at CoalDev through September 2026. Open to roles in Lahore and remote.
           </motion.p>
 
           <motion.div
@@ -382,6 +376,12 @@ function Hero() {
             >
               Selected work <ArrowDownRight size={14} />
             </button>
+            <a
+              href={`${import.meta.env.BASE_URL}Muhammad_Haris_Umer_CV.pdf`}
+              className="inline-flex items-center gap-2 border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-fg transition-colors hover:border-fg"
+            >
+              One-page CV
+            </a>
             <button
               onClick={() => goTo('contact')}
               className="inline-flex items-center gap-2 border border-line px-5 py-3 text-[11px] font-medium uppercase tracking-[0.16em] text-fg transition-colors hover:border-fg"
@@ -412,13 +412,13 @@ function Hero() {
             <div className="absolute -bottom-3 -left-3 h-16 w-16 border-b border-l border-accent" aria-hidden />
             <img
               src={PROFILE}
-              alt="M. Haris Umer"
+              alt="Muhammad Haris Umer"
               className="aspect-[4/5] w-full object-cover object-top"
             />
           </div>
           <div className="mt-4 flex items-center justify-between label">
             <span>Lahore, PK</span>
-            <span className="text-accent">@ CoalDev</span>
+            <span className="text-accent">Open to work</span>
           </div>
         </motion.div>
       </div>
@@ -444,9 +444,9 @@ function About() {
               fast and useful.
             </p>
             <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-quiet">
-              A year ago I graduated with a BS in Computer Science from FAST-NUCES, Lahore. Since then I&apos;ve been
-              building AI products at CoalDev and open-sourcing generative-AI pipelines, computer-vision systems, LLM
-              agents, and the full-stack apps around them.
+              I graduated with a BS in Computer Science from FAST-NUCES, Lahore, in 2025. At CoalDev I shipped
+              Sortsy search and a Redis/Celery trading path. The public projects below are the same ones on my CV:
+              Artikon, aircraft quote extraction, and the cable defect detector.
             </p>
           </Reveal>
 
@@ -669,7 +669,7 @@ function Contact() {
             Let&apos;s build something.
           </h2>
           <p className="mt-6 max-w-md text-[15px] leading-relaxed text-quiet">
-            Open to AI / full-stack roles, freelance builds and collaborations. Email is the fastest way to reach me.
+            Open to full-time AI/ML engineer roles in Lahore and remote. Email is the fastest way to reach me.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
@@ -695,7 +695,7 @@ function Footer() {
   return (
     <footer className="border-t border-line px-5 py-6 md:px-8">
       <div className="mx-auto flex max-w-sheet flex-col items-start justify-between gap-3 text-[11px] uppercase tracking-[0.14em] text-quiet sm:flex-row sm:items-center">
-        <span className="font-display font-semibold normal-case tracking-tight text-fg">Haris Umer</span>
+        <span className="font-display font-semibold normal-case tracking-tight text-fg">Muhammad Haris Umer</span>
         <span>© {new Date().getFullYear()} · React + Framer Motion</span>
         <button onClick={() => goTo('top')} className="hover:text-fg">
           Back to top ↑
